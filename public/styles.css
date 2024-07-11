@@ -1,29 +1,118 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+/* Reset some basic styles */
+body, html, .container {
     margin: 0;
+    padding: 0;
+    width: 100%;
+    box-sizing: border-box;
   }
   
-  .container {
-    max-width: 800px;
+  body {
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  /* Add styles for the announcement */
+  .announcement {
+    background-color: #ffeb3b; /* Yellow background to highlight */
+    color: #333;
+    padding: 10px 20px;
+    text-align: center;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
     width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* Add styles for the sorting container */
+  .sort-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+    padding: 0 20px;
+  }
+  
+  .sort-container label {
+    margin-right: 10px;
+    font-weight: bold;
+  }
+  
+  .sort-container select {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  
+  /* Styles for the container and cards */
+  .container {
     padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
   
   .card {
+    background-color: #fff;
     border: 1px solid #ddd;
-    padding: 20px;
-    margin-bottom: 10px;
     border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    max-width: 600px;  /* Added max-width to restrict the width of the card */
+    margin-left: auto;
+    margin-right: auto;
   }
   
-  .card h2 {
-    margin-top: 0;
+  .card-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .button-upvote, .button-downvote, .button-maps {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  .button-upvote {
+    background-color: #4CAF50; /* Green */
+    color: white;
+  }
+  
+  .button-downvote {
+    background-color: #f44336; /* Red */
+    color: white;
+  }
+  
+  .button-maps {
+    background-color: #2196F3; /* Blue */
+    color: white;
+  }
+  
+  /* Mobile adjustments */
+  @media (max-width: 600px) {
+    .sort-container {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .sort-container label {
+      margin-bottom: 10px;
+    }
+  
+    .card-buttons {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .card-buttons button {
+      margin-bottom: 10px;
+      width: 100%;
+    }
+  
+    .vote-count {
+      width: 100%;
+      text-align: left;
+    }
   }
   
