@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/styles.css">
+  <title>Work from Cafe Bali</title>
+</head>
+<body>
+  <div class="container">
+    <% places.forEach(place => { %>
+      <div class="card">
+        <h2><%= place.name %></h2>
+        <p>📍 <%= place.area %></p>
+        <p>⏰ <%= place.openingHours %></p>
+        <p>💰 <%= place.startingPrice %></p>
+        <p>🟢 <%= place.internetSpeed %> Mbps</p>
+        <p>👍 <%= place.votes %> votes</p>
+        <button onclick="vote(<%= place.index %>, 'upvote')">Upvote</button>
+        <button onclick="vote(<%= place.index %>, 'downvote')">Downvote</button>
+      </div>
+    <% }) %>
+  </div>
+
+  <script>
+    async function vote(index, action) {
+      try {
+        const response = await fetch('/vote', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ index, action }),
+        });
+
+        if (response.ok) {
+          location.reload();
+        } else {
+          alert('Failed to update votes');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred');
+      }
+    }
+  </script>
+</body>
+</html>
