@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WFC Bali List</title>
+  <title>Recommendations</title>
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
   <div class="announcement">
-    📍 = Area | ⏰ = Operating Hours | 💰 = Starting Price | 🟢 = Avg. Internet Speed
+    📍 means Area | ⏰ means Opening Time | 💰 means Starting Price | 🟢 means Average Internet Speed
   </div>
   <div class="sort-container">
     <label for="area-sort">Sort by Area:</label>
@@ -36,10 +36,10 @@
           <button class="button-downvote" onclick="vote(<%= place.index %>, 'downvote')">Downvote</button>
           <button class="button-maps" onclick="window.open('<%= place.mapLink %>', '_blank')">Maps</button>
         </div>
-        <p class="vote-count">👍: <%= place.votes %></p>
+        <p class="vote-count">Votes: <%= place.votes %></p>
       </div>
     <% }) %>
   </div>
-  <script src="/public/scripts.js"></script>
+  <script src="/scripts.js"></script>
 </body>
 </html>
