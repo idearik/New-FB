@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Recommendation</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Add a New Recommendation</h1>
+    <form action="/add-recommendation" method="POST">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div class="form-group">
+        <label for="area">Area:</label>
+        <input type="text" id="area" name="area" required>
+      </div>
+      <div class="form-group">
+        <label for="openingHours">Opening Hours:</label>
+        <input type="text" id="openingHours" name="openingHours" required>
+      </div>
+      <div class="form-group">
+        <label for="startingPrice">Starting Price:</label>
+        <input type="text" id="startingPrice" name="startingPrice" required>
+      </div>
+      <div class="form-group">
+        <label for="internetSpeed">Internet Speed (Mbps):</label>
+        <input type="text" id="internetSpeed" name="internetSpeed" required>
+      </div>
+      <div class="form-group">
+        <label for="mapLink">Map Link:</label>
+        <input type="text" id="mapLink" name="mapLink">
+      </div>
+      <button type="submit">Add Recommendation</button>
+    </form>
+  </div>
+</body>
+</html>

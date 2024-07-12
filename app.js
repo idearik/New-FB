@@ -12,10 +12,10 @@ const PORT = process.env.PORT || 3000;
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 const GOOGLE_SHEET_ID = process.env.GOOGLE_SHEET_ID;
-
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
 const serviceAccountBase64 = process.env.GOOGLE_SERVICE_ACCOUNT_BASE64;
 
@@ -69,6 +69,29 @@ async function updateVotes(index, votes) {
   });
 }
 
+async function addPlace(place) {
+  const authClient = await auth.getClient();
+  const sheets = google.sheets({ version: 'v4', auth: authClient });
+  await sheets.spreadsheets.values.append({
+    spreadsheetId: GOOGLE_SHEET_ID,
+    range: 'Sheet1!A:G',
+    valueInputOption: 'RAW',
+    resource: {
+      values: [
+        [
+          place.name,
+          place.area,
+          place.openingHours,
+          place.startingPrice,
+          place.internetSpeed,
+          place.votes,
+          place.mapLink
+        ]
+      ]
+    }
+  });
+}
+
 app.get('/', async (req, res) => {
   try {
     const places = await getPlaces();
@@ -76,6 +99,31 @@ app.get('/', async (req, res) => {
   } catch (error) {
     console.error('Error fetching data from Google Sheets:', error);
     res.status(500).send('Error fetching data');
+  }
+});
+
+app.get('/add-recommendation', (req, res) => {
+  res.render('add-recommendation');
+});
+
+app.post('/add-recommendation', async (req, res) => {
+  const { name, area, openingHours, startingPrice, internetSpeed, mapLink } = req.body;
+  const newPlace = {
+    name,
+    area,
+    openingHours,
+    startingPrice,
+    internetSpeed,
+    votes: 0,
+    mapLink
+  };
+
+  try {
+    await addPlace(newPlace);
+    res.redirect('/');
+  } catch (error) {
+    console.error('Error adding new place:', error);
+    res.status(500).send('Error adding new place');
   }
 });
 
