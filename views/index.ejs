@@ -3,93 +3,42 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Places</title>
   <link rel="stylesheet" href="/styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  <title>Work from Cafe Bali</title>
 </head>
 <body>
   <div class="announcement">
-    📍 = Area | ⏰ = Operation Hours | 💰 = Starting Price | 🟢 = Average Internet Speed
+    📍 means Area &nbsp;|&nbsp; ⏰ means Opening Time &nbsp;|&nbsp; 💰 means Starting Price &nbsp;|&nbsp; 🟢 mean Average Internet Speed
   </div>
   <div class="container">
     <div class="sort-container">
-      <label for="sortArea">Sort by Area:</label>
-      <select id="sortArea" onchange="sortPlaces()">
-        <option value="all">All</option>
+      <label for="area-sort">Sort by Area:</label>
+      <select id="area-sort">
+        <option value="">All</option>
         <% 
-          const areas = new Set();
-          places.forEach(place => {
-            areas.add(place.area);
-          });
-          areas.forEach(area => { 
+          const uniqueAreas = [...new Set(places.map(place => place.area))];
+          uniqueAreas.forEach(area => { 
         %>
           <option value="<%= area %>"><%= area %></option>
         <% }); %>
       </select>
     </div>
-    
-    <div id="placesContainer">
-      <% places.forEach(place => { %>
-        <div class="card" data-area="<%= place.area %>">
-          <h2><%= place.name %></h2>
-          <p>📍 <%= place.area %></p>
-          <p>⏰ <%= place.openingHours %></p>
-          <p>💰 <%= place.startingPrice %></p>
-          <p>🟢 <%= place.internetSpeed %> Mbps</p>
-          <div class="card-buttons">
-            <button class="button-upvote" onclick="vote(<%= place.index %>, 'upvote')">Upvote</button>
-            <button class="button-downvote" onclick="vote(<%= place.index %>, 'downvote')">Downvote</button>
-            <button class="button-maps" onclick="openMap('<%= place.mapLink %>')">Maps</button>
-            <div class="vote-count">👍 <%= place.votes %> votes</div>
-          </div>
+    <% places.forEach(place => { %>
+      <div class="card" data-area="<%= place.area %>">
+        <h2><%= place.name %></h2>
+        <p>📍 <%= place.area %></p>
+        <p>⏰ <%= place.openingHours %></p>
+        <p>💰 <%= place.startingPrice %></p>
+        <p>🟢 <%= place.internetSpeed %> Mbps</p>
+        <div class="card-buttons">
+          <button class="button-upvote" data-index="<%= place.index %>">Upvote</button>
+          <button class="button-downvote" data-index="<%= place.index %>">Downvote</button>
+          <button class="button-maps" onclick="window.open('<%= place.mapLink %>', '_blank')">Maps</button>
+          <span class="vote-count">Votes: <%= place.votes %></span>
         </div>
-      <% }) %>
-    </div>
+      </div>
+    <% }); %>
   </div>
-
-  <script>
-    async function vote(index, action) {
-      try {
-        const response = await fetch('/vote', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ index, action }),
-        });
-
-        if (response.ok) {
-          location.reload();
-        } else {
-          alert('Failed to update votes');
-        }
-      } catch (error) {
-        console.error('Error:', error);
-        alert('An error occurred');
-      }
-    }
-
-    function openMap(url) {
-      if (url) {
-        window.open(url, '_blank');
-      } else {
-        alert('Map link not available');
-      }
-    }
-
-    function sortPlaces() {
-      const selectedArea = document.getElementById('sortArea').value;
-      const placesContainer = document.getElementById('placesContainer');
-      const cards = document.querySelectorAll('.card');
-
-      cards.forEach(card => {
-        if (selectedArea === 'all' || card.getAttribute('data-area') === selectedArea) {
-          card.style.display = 'block';
-        } else {
-          card.style.display = 'none';
-        }
-      });
-    }
-  </script>
+  <script src="/script.js"></script>
 </body>
 </html>
