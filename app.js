@@ -3,7 +3,6 @@ const { google } = require('googleapis');
 const dotenv = require('dotenv');
 const path = require('path');
 const bodyParser = require('body-parser');
-const fs = require('fs');
 
 dotenv.config();
 
@@ -18,39 +17,46 @@ app.use(bodyParser.json());
 const GOOGLE_SHEET_ID = process.env.GOOGLE_SHEET_ID;
 
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
-const KEYFILEPATH = path.join(__dirname, 'service-account.json');
+const serviceAccountBase64 = process.env.GOOGLE_SERVICE_ACCOUNT_BASE64;
+
+if (!serviceAccountBase64) {
+  throw new Error('The GOOGLE_SERVICE_ACCOUNT_BASE64 environment variable is not set.');
+}
+
+const serviceAccountBuffer = Buffer.from(serviceAccountBase64, 'base64');
+const serviceAccount = JSON.parse(serviceAccountBuffer.toString('utf-8'));
 
 const auth = new google.auth.GoogleAuth({
-  keyFile: KEYFILEPATH,
+  credentials: serviceAccount,
   scopes: SCOPES,
 });
 
 async function getPlaces() {
-    const authClient = await auth.getClient();
-    const sheets = google.sheets({ version: 'v4', auth: authClient });
-    const response = await sheets.spreadsheets.values.get({
-      spreadsheetId: GOOGLE_SHEET_ID,
-      range: 'Sheet1!A1:G',
-    });
-  
-    const rows = response.data.values;
-    if (!rows || rows.length === 0) {
-      throw new Error('No data found in the sheet');
-    }
-  
-    const places = rows.slice(1).map((row, index) => ({
-      name: row[0],
-      area: row[1],
-      openingHours: row[2],
-      startingPrice: row[3],
-      internetSpeed: row[4],
-      votes: parseInt(row[5], 10) || 0,
-      mapLink: row[6] || '',
-      index: index + 2, // 1-based index including header row
-    }));
-  
-    return places.sort((a, b) => b.votes - a.votes);
+  const authClient = await auth.getClient();
+  const sheets = google.sheets({ version: 'v4', auth: authClient });
+  const response = await sheets.spreadsheets.values.get({
+    spreadsheetId: GOOGLE_SHEET_ID,
+    range: 'Sheet1!A1:G',
+  });
+
+  const rows = response.data.values;
+  if (!rows || rows.length === 0) {
+    throw new Error('No data found in the sheet');
   }
+
+  const places = rows.slice(1).map((row, index) => ({
+    name: row[0],
+    area: row[1],
+    openingHours: row[2],
+    startingPrice: row[3],
+    internetSpeed: row[4],
+    votes: parseInt(row[5], 10) || 0,
+    mapLink: row[6] || '',
+    index: index + 2, // 1-based index including header row
+  }));
+
+  return places.sort((a, b) => b.votes - a.votes);
+}
 
 async function updateVotes(index, votes) {
   const authClient = await auth.getClient();
