@@ -14,7 +14,7 @@ body {
 .announcement {
   background-color: #ffeb3b; /* Yellow background to highlight */
   color: #333;
-  padding: 10px 20px;
+  padding: 8px 16px;
   text-align: center;
   font-weight: bold;
   border-bottom: 1px solid #ccc;
@@ -26,52 +26,65 @@ body {
 .sort-container {
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 20px;
-  padding: 0 20px;
+  margin-bottom: 10px;
+  padding: 0 10px;
 }
 
 .sort-container label {
-  margin-right: 10px;
+  margin-right: 5px;
   font-weight: bold;
 }
 
 .sort-container select {
-  padding: 5px 10px;
+  padding: 3px 8px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 /* Styles for the container and cards */
 .container {
-  padding: 20px;
+  padding: 10px;
 }
 
 .card {
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 5px;
-  padding: 20px;
-  margin-bottom: 20px;
+  padding: 15px;
+  margin-bottom: 10px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   max-width: 600px;  /* Added max-width to restrict the width of the card */
   margin-left: auto;
   margin-right: auto;
 }
 
+.card h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.card p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
 .card-buttons {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 10px;
 }
 
 .button-upvote, .button-downvote, .button-maps {
-  padding: 10px 15px;
+  padding: 5px 10px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: bold;
+  display: flex;
+  align-items: center;
 }
 
 .button-upvote {
@@ -89,6 +102,10 @@ body {
   color: white;
 }
 
+.button-upvote span, .button-downvote span, .button-maps span {
+  margin-left: 5px;
+}
+
 /* Mobile adjustments */
 @media (max-width: 600px) {
   .sort-container {
@@ -97,7 +114,7 @@ body {
   }
 
   .sort-container label {
-      margin-bottom: 10px;
+      margin-bottom: 5px;
   }
 
   .card-buttons {
@@ -106,7 +123,7 @@ body {
   }
 
   .card-buttons button {
-      margin-bottom: 10px;
+      margin-bottom: 5px;
       width: 100%;
   }
 
@@ -120,16 +137,16 @@ body {
 .add-recommendation-container {
   display: flex;
   justify-content: center;
-  margin: 20px 0;
+  margin: 15px 0;
 }
 
 .button-add-recommendation {
-  padding: 10px 20px;
+  padding: 8px 16px;
   border: none;
   border-radius: 5px;
   background-color: #4CAF50; /* Green */
   color: white;
-  font-size: 16px;
+  font-size: 14px;
   cursor: pointer;
 }
 
@@ -137,18 +154,49 @@ body {
   background-color: #45a049;
 }
 
+/* Styles for the search bar */
+.search-container {
+  display: flex;
+  justify-content: center;
+  margin: 15px 0;
+}
+
+.search-container input[type="text"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  width: 80%;
+  max-width: 400px;
+}
+
+.search-container button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4CAF50; /* Green */
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.search-container button:hover {
+  background-color: #45a049;
+}
+
 /* Form Styles */
 .form-container {
   max-width: 600px;
   margin: auto;
-  padding: 20px;
+  padding: 15px;
   background-color: #f9f9f9;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .form-group label {
@@ -158,18 +206,18 @@ body {
 
 .form-group input {
   width: 100%;
-  padding: 10px;
+  padding: 8px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
 
 button[type="submit"] {
-  padding: 10px 20px;
+  padding: 8px 16px;
   border: none;
   border-radius: 5px;
   background-color: #4CAF50;
   color: white;
-  font-size: 16px;
+  font-size: 14px;
   cursor: pointer;
 }
 

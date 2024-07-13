@@ -23,20 +23,24 @@
   <div class="add-recommendation-container">
     <button class="button-add-recommendation" onclick="location.href='/add-recommendation'">Add Recommendation</button>
   </div>
+  <div class="search-container">
+    <input type="text" id="search-bar" placeholder="Search for places..." onkeyup="searchPlaces()">
+    <button onclick="searchPlaces()">Search</button>
+  </div>
   <div class="container">
     <% places.forEach(place => { %>
-      <div class="card" data-area="<%= place.area %>">
+      <div class="card" data-area="<%= place.area %>" data-name="<%= place.name %>">
         <h2><%= place.name %></h2>
         <p>📍 <%= place.area %></p>
         <p>⏰ <%= place.openingHours %></p>
         <p>💰 <%= place.startingPrice %></p>
         <p>🟢 <%= place.internetSpeed %> Mbps</p>
         <div class="card-buttons">
-          <button class="button-upvote" onclick="vote(<%= place.index %>, 'upvote')">Upvote</button>
-          <button class="button-downvote" onclick="vote(<%= place.index %>, 'downvote')">Downvote</button>
-          <button class="button-maps" onclick="window.open('<%= place.mapLink %>', '_blank')">Maps</button>
+          <button class="button-upvote" onclick="vote(<%= place.index %>, 'upvote')">👍<span>Upvote</span></button>
+          <button class="button-downvote" onclick="vote(<%= place.index %>, 'downvote')">👎<span>Downvote</span></button>
+          <button class="button-maps" onclick="window.open('<%= place.mapLink %>', '_blank')">📍<span>Maps</span></button>
         </div>
-        <p class="vote-count">👍: <%= place.votes %></p>
+        <p class="vote-count">Votes: <%= place.votes %></p>
       </div>
     <% }) %>
   </div>
