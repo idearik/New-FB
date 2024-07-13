@@ -100,3 +100,27 @@ function vote(index, type) {
 document.addEventListener('DOMContentLoaded', () => {
   showInitialCards();
 });
+
+//Animation Counting
+  document.addEventListener('DOMContentLoaded', () => {
+    const countElement = document.getElementById('cafe-count-number');
+    const totalCount = parseInt(countElement.textContent, 10);
+    
+    let currentCount = 0;
+    const duration = 2000; // Duration of the animation in milliseconds
+    const stepTime = 50; // Time interval between steps in milliseconds
+    const steps = duration / stepTime;
+    const increment = Math.ceil(totalCount / steps);
+    
+    function updateCount() {
+      currentCount += increment;
+      if (currentCount >= totalCount) {
+        countElement.textContent = totalCount;
+      } else {
+        countElement.textContent = currentCount;
+        setTimeout(updateCount, stepTime);
+      }
+    }
+    
+    updateCount();
+  });

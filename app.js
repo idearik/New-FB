@@ -95,7 +95,11 @@ async function addPlace(place) {
 app.get('/', async (req, res) => {
   try {
     const places = await getPlaces();
-    res.render('index', { places });
+    const totalPlaces = places.length; // Calculate total number of places
+    res.render('index', { 
+      places, 
+      totalPlaces // Pass totalPlaces to the template
+    });
   } catch (error) {
     console.error('Error fetching data from Google Sheets:', error);
     res.status(500).send('Error fetching data');
@@ -152,7 +156,6 @@ app.post('/vote', async (req, res) => {
     res.status(500).send({ success: false, message: 'Error updating votes' });
   }
 });
-
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

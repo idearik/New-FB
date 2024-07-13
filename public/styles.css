@@ -244,3 +244,26 @@ button[type="submit"]:hover {
 #load-more:hover {
   background-color: #45a049;
 }
+
+.cafe-count {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+.cafe-count p {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #000000;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+#cafe-count-number {
+  font-size: 1.5em; /* Larger font size for the number */
+  color: #4CAF50; /* Change color as needed */
+  transition: color 0.3s ease; /* Smooth color transition */
+}
+
