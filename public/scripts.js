@@ -76,12 +76,12 @@ function searchPlaces() {
 
 // Function to handle voting
 function vote(index, type) {
-  fetch(`/vote/${index}`, {
+  fetch('/vote', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ type })
+    body: JSON.stringify({ index, action: type })
   })
   .then(response => response.json())
   .then(data => {
@@ -89,6 +89,8 @@ function vote(index, type) {
       const card = document.querySelector(`.card[data-index='${index}']`);
       const voteCount = card.querySelector('.vote-count');
       voteCount.textContent = `Votes: ${data.votes}`;
+    } else {
+      console.error('Failed to update votes:', data.message);
     }
   })
   .catch(error => console.error('Error:', error));

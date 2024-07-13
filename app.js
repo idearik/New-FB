@@ -146,12 +146,13 @@ app.post('/vote', async (req, res) => {
     }
 
     await updateVotes(index, newVotes);
-    res.send({ success: true });
+    res.send({ success: true, votes: newVotes });
   } catch (error) {
     console.error('Error updating votes:', error);
-    res.status(500).send('Error updating votes');
+    res.status(500).send({ success: false, message: 'Error updating votes' });
   }
 });
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
